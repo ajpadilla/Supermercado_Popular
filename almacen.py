@@ -1,8 +1,12 @@
-#!usr/bin/python
+#!usr/bin/opcionpython
 # -*- coding:utf8 -*-
 
 from producto import Producto
 from enlatado import Enlatado
+from lacteo_liquido import Lacteo_Liquido
+from lacteo_solido import Lacteo_Solido
+from carne import Carne
+from articulo import Articulo
 
 class Almacen:
    def __init__(self):
@@ -11,70 +15,82 @@ class Almacen:
 
    def menuPrincipal(self):
       opcion=0
-      print("Menu Principal")
-      print("1.Añadir producto al almacen")
-      print("2.Modificar existencia de un producto")
-      print("3.Facturar venta")
-      print("4.Ingresos brutos")
-      print("5.Egresos de la empresa")
-      print("6.Reporte de productos exentos de IVA con mayores ventas")
-      print("7.Reporte de productos con existencia baja")
-      print("8.Salir")
-      opcion=int(raw_input("Opcion:"))
+      print("\t\t      Menu Principal    ")
+      print("\t\t 1.Añadir producto al almacen")
+      print("\t\t 2.Modificar existencia de un producto")
+      print("\t\t 3.Facturar venta")
+      print("\t\t 4.Ingresos brutos")
+      print("\t\t 5.Egresos de la empresa")
+      print("\t\t 6.Reporte de productos exentos de IVA con mayores ventas")
+      print("\t\t 7.Reporte de productos con existencia baja")
+      print("\t\t 8.Salir")
+      opcion=int(raw_input("\t\t Opcion:"))
       return opcion
   
    def menuProductos(self):
        opcion=0
-       print("Menu Productos ")
-       print("1. Enlatado")
-       print("2. Lacteo Liquido")
-       print("3. Lacteo Solido")
-       print("4. Carne")
-       print("5. Articulo")
-       print("6.Salir")
-       opcion=int(raw_input("Opcion:"))
+       print("\t\t      Menu Productos    ")
+       print("\t\t 1. Enlatado")
+       print("\t\t 2. Lacteo Liquido")
+       print("\t\t 3. Lacteo Solido")
+       print("\t\t 4. Carne")
+       print("\t\t 5. Articulo")
+       print("\t\t 6.Salir")
+       opcion=int(raw_input("\t\t Opcion:"))
        return opcion
     
    def verificarCodigoProducto(self,codigo):
        #print("codigo:"+codigo)
        for producto in self.__productos:
-	   if producto.get_codigo() == codigo:
+	   if producto.get_codigo() == codigo :
               return True
        return False 
    
    def buscarProducto(self,codigo):
       pos=-1
-      print("cant_pro:"+str(len(self.__productos)))
+      print("Productos en almacen:"+str(len(self.__productos)))
       for i in range(len(self.__productos)):
-          if self.__productos[i].get_codigo()==codigo:
-             print("Hola")
+          if self.__productos[i].get_codigo() == codigo :
              return i
       return -1
               
-        
 
- 
    def agregarProducto(self):
-     seleccion=0
-     while seleccion>=0 and seleccion<=6:
+     bandera=False
+     while True:
            seleccion=self.menuProductos()
-       
- 	   if seleccion == 1 :
-              producto=Enlatado() 
-
-           if seleccion<=0 or seleccion>=6:
-              print("Opcion Invalida")
-              break  
-
-           producto.ingresarCodigo()
-           if(self.verificarCodigoProducto(producto.get_codigo())):
+ 	   if seleccion == 1:
+              producto=Enlatado()
+              bandera=True
+           elif seleccion == 2:
+              producto=Lacteo_Liquido()
+              bandera=True
+           elif seleccion == 3:
+              producto=Lacteo_Solido()
+              bandera=True
+           elif seleccion == 4:
+              producto=Carne()
+              bandera=True
+           elif seleccion == 5:
+              producto=Articulo()
+              bandera=True
+           elif  seleccion<1 or seleccion>6 :
+              print("Opcion Invalida")   
+           elif seleccion==6:
+              break
+   
+           if bandera : 	  
+             producto.ingresarCodigo()
+             if(self.verificarCodigoProducto(producto.get_codigo())):
                print("El codigo ya existe")
-           else:
+             else:
                producto.ingresarDatos()
                self.__productos.append(producto)
-	       print("Producto agregado al sistema"+str(len(self.__productos)))
+	       print("Producto agregado al sistema:"+str(len(self.__productos)))
+     
+          
         
-   def buscarProductoAlmacen(self):
+   def modificarExistenciaProductoAlmacen(self):
        codigo=str(raw_input("Ingrese codigo a buscar:"))
        pos=self.buscarProducto(codigo)
        if pos>-1:
@@ -82,19 +98,23 @@ class Almacen:
        else:
           print("No se encontro el producto") 
 
+
+
    def main(self):
+        print("\t\t------ Supermercado Popular------")
         res='s'
         opcion=0
-        while opcion>=0 and  opcion<8:
+        while True:
           opcion=self.menuPrincipal() 
           if opcion==1:
               self.agregarProducto()
-          if opcion==2:
-              self.buscarProductoAlmacen()          
+          elif opcion==2:
+              self.modificarExistenciaProductoAlmacen()          
 
-          if opcion<=0 or opcion>8:
+          if opcion<1 or opcion>8:
              print("Opcion Invalida")
+          elif opcion == 8 :
              break
       
              
-  
+ 
