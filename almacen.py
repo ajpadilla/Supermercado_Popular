@@ -154,9 +154,25 @@ class Almacen:
        else:
          print("No se encontro el producto")
           
-
-       
-   def main(self):
+   def calcularIngresos(self):
+       self.ingresos=0
+       for factura in self.__facturas:
+           self.ingresos+=factura.total
+       print("Ingresos por ventas: %.2f:" % (self.ingresos))     
+   
+ 
+   def calcularEgresos(self):
+       self.egresos=0
+       for producto in self.__productos:
+           self.egresos+=producto.costo_compra
+       print("Egresos por compras: %.2f" % (self.egresos))
+   
+   def productosExistenciaBaja(self):
+       for producto in self.__productos:
+           if producto.cant_existencia <= 10 :
+              producto.imprimirDatos()
+ 
+   def  main(self):
         print("\t\t------ Supermercado Popular------")
         res='s'
         opcion=0
@@ -169,7 +185,13 @@ class Almacen:
           elif opcion==3:
               self.modificarExistenciaProductoAlmacen()  
           elif opcion==4:
-              self.facturarVenta()       
+              self.facturarVenta()  
+          elif opcion==5:
+              self.calcularIngresos()
+          elif opcion==6:
+              self.calcularEgresos()
+          elif opcion==7:
+              self.productosExistenciaBaja()     
           if opcion<1 or opcion>8:
              print("Opcion Invalida")
           elif opcion == 8 :

@@ -2,6 +2,7 @@
 
 from almacen import Almacen
 
-almacen=Almacen()
-almacen.main()
+if __name__=="__main__":
+ almacen=Almacen()
+ almacen.main()
 

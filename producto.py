@@ -41,6 +41,9 @@ class Factura:
        self.productos=[] 
        self.iva=float(0.00)
        self.datos=str('')
+       self.monto=0
+       self.sub_total=0
+       self.total=0
 
     def agregarProducto(self,producto):
         self.productos.append(producto)
@@ -50,9 +53,6 @@ class Factura:
            producto.imprimirDatosVenta()
    
     def calcularPago(self):
-        self.monto=0
-        self.sub_total=0        
-        self.total=0
         print("Cedula cliente:"+self.cedula_cliente)
         for producto in self.productos:
             self.monto=(producto.precio_venta * producto.cant_vendida)
@@ -66,3 +66,4 @@ class Factura:
         print("Sub-total Bs:"+str(self.sub_total)) 
         print("IVA:"+str(self.iva)+" "+"12%")
         print("Total Bs:"+str(self.total))
+
