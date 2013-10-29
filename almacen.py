@@ -17,11 +17,11 @@ class Almacen:
       opcion=0
       print("\t\t      Menu Principal    ")
       print("\t\t 1.Añadir producto al almacen")
-      print("\t\t 2.Modificar existencia de un producto")
-      print("\t\t 3.Facturar venta")
-      print("\t\t 4.Ingresos brutos")
-      print("\t\t 5.Egresos de la empresa")
-      print("\t\t 6.Reporte de productos exentos de IVA con mayores ventas")
+      print("\t\t 2.Mostrar productos")
+      print("\t\t 3.Modificar existencia de un producto")
+      print("\t\t 4.Facturar venta")
+      print("\t\t 5.Ingresos brutos")
+      print("\t\t 6.Egresos de la empresa")
       print("\t\t 7.Reporte de productos con existencia baja")
       print("\t\t 8.Salir")
       opcion=int(raw_input("\t\t Opcion:"))
@@ -42,7 +42,7 @@ class Almacen:
    def verificarCodigoProducto(self,codigo):
        #print("codigo:"+codigo)
        for producto in self.__productos:
-	   if producto.get_codigo() == codigo :
+	   if producto.codigo == codigo :
               return True
        return False 
    
@@ -50,7 +50,7 @@ class Almacen:
       pos=-1
       print("Productos en almacen:"+str(len(self.__productos)))
       for i in range(len(self.__productos)):
-          if self.__productos[i].get_codigo() == codigo :
+          if self.__productos[i].codigo == codigo :
              return i
       return -1
               
@@ -81,24 +81,42 @@ class Almacen:
    
            if bandera : 	  
              producto.ingresarCodigo()
-             if(self.verificarCodigoProducto(producto.get_codigo())):
-               print("El codigo ya existe")
+             if self.verificarCodigoProducto(producto.codigo):
+                print("El codigo ya existe")
              else:
                producto.ingresarDatos()
                self.__productos.append(producto)
 	       print("Producto agregado al sistema:"+str(len(self.__productos)))
-     
-          
-        
+    
+   def mostrarProductos(self):
+      if len(self.__productos)>0:
+        for producto in self.__productos:
+          producto.imprimirDatos()
+      else:
+          print("No hay productos registrados")
+           
+
    def modificarExistenciaProductoAlmacen(self):
-       codigo=str(raw_input("Ingrese codigo a buscar:"))
+       codigo=str('')
+       cantidad=0
+
+       codigo=str(raw_input("Ingrese codigo a modificar:"))
        pos=self.buscarProducto(codigo)
        if pos>-1:
-          self.__productos[pos].imprimirDatos()
+          print("Producto localizado")
+          cantidad=float(raw_input("Cantidad:"))
+          if cantidad>0:
+	     producto=self.__productos[pos]
+             producto.cant_existencia=cantidad
+             self.__productos.insert(pos,producto)
+             self.__productos[pos].imprimirDatos()
+          else:
+              print("Cantidad incorrecta")
        else:
           print("No se encontro el producto") 
-
-
+       
+        
+    
 
    def main(self):
         print("\t\t------ Supermercado Popular------")
@@ -109,12 +127,13 @@ class Almacen:
           if opcion==1:
               self.agregarProducto()
           elif opcion==2:
+              self.mostrarProductos() 
+          elif opcion==3:
               self.modificarExistenciaProductoAlmacen()          
-
           if opcion<1 or opcion>8:
              print("Opcion Invalida")
           elif opcion == 8 :
              break
       
              
- 
+
