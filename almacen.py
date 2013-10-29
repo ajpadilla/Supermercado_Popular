@@ -121,6 +121,7 @@ class Almacen:
      cedula=str('')
      cant_restante=cantidad=0
      factura=Factura()
+     facturar=False
 
      cedula=raw_input("Cedula del cliente:")
      while True: 
@@ -145,13 +146,13 @@ class Almacen:
             factura.imprimir() 
             res=raw_input("¿Desea comprar otro producto(s/n)?")  
             if res == 'n':
+               factura.calcularPago()
+               self.__facturas.append(factura)
                break; 
          else:
              print("No se puede vender la cantidad deseada")
        else:
          print("No se encontro el producto")
-      
-      self.__facturas.append(factura)    
           
 
        
