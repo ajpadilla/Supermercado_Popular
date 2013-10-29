@@ -1,7 +1,7 @@
 #!usr/bin/opcionpython
 # -*- coding:utf8 -*-
 
-from producto import Producto
+from producto import Producto,Factura
 from enlatado import Enlatado
 from lacteo_liquido import Lacteo_Liquido
 from lacteo_solido import Lacteo_Solido
@@ -11,7 +11,8 @@ from articulo import Articulo
 class Almacen:
    def __init__(self):
        self.__cant_productos=int(0)
-       self.__productos=[]      
+       self.__productos=[]   
+       self.__facturas=[]   
 
    def menuPrincipal(self):
       opcion=0
@@ -114,10 +115,46 @@ class Almacen:
               print("Cantidad incorrecta")
        else:
           print("No se encontro el producto") 
-       
-        
-    
+   
+   def facturarVenta(self):
+     res=codigo=str('')
+     cedula=str('')
+     cant_restante=cantidad=0
+     factura=Factura()
 
+     cedula=raw_input("Cedula del cliente:")
+     while True: 
+       codigo=raw_input("Ingrese codigo del producto a comprar:")
+       pos=self.buscarProducto(codigo)
+       if pos>-1:
+         print("Producto localizado")
+         print("Cantidad existente del producto:"+str(self.__productos[pos].cant_existencia))
+         
+         cantidad=int(raw_input("Cantidad a comprar del producto:"))
+
+         if cantidad <= self.__productos[pos].cant_existencia:
+            producto=self.__productos[pos]
+            cant_restante=(producto.cant_existencia - cantidad)
+            producto.cant_vendida=cantidad
+            producto.cant_existencia=cant_restante
+            self.__productos.insert(pos,producto)
+            #self.__productos[pos].imprimirDatos()
+            factura.cedula_cliente=cedula
+            factura.agregarProducto(producto)
+            print("Producto agregado con exito a su carro de compras")
+            factura.imprimir() 
+            res=raw_input("¿Desea comprar otro producto(s/n)?")  
+            if res == 'n':
+               break; 
+         else:
+             print("No se puede vender la cantidad deseada")
+       else:
+         print("No se encontro el producto")
+      
+      self.__facturas.append(factura)    
+          
+
+       
    def main(self):
         print("\t\t------ Supermercado Popular------")
         res='s'
@@ -129,7 +166,9 @@ class Almacen:
           elif opcion==2:
               self.mostrarProductos() 
           elif opcion==3:
-              self.modificarExistenciaProductoAlmacen()          
+              self.modificarExistenciaProductoAlmacen()  
+          elif opcion==4:
+              self.facturarVenta()       
           if opcion<1 or opcion>8:
              print("Opcion Invalida")
           elif opcion == 8 :

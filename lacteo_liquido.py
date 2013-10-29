@@ -13,5 +13,5 @@ class Lacteo_Liquido(Producto):
    
     def imprimirDatos(self):
        Producto.imprimirDatos(self)
-       self.datos+="Litros: %s" % (self.cant_existencia)
+       self.datos+=" Litros: %s" % (self.cant_existencia)
        print(self.datos)

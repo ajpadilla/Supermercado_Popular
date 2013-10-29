@@ -6,7 +6,8 @@ class Producto:
         self.cant_existencia=float(0.00)
         self.costo_compra=float(0.00)
         self.precio_venta=float(0.00)
-        self.datos=str('')  
+        self.datos=str('') 
+        self.cant_vendida=0 
 	self.iva=float(0.00)      
    
     def ingresarCodigo(self):
@@ -22,11 +23,16 @@ class Producto:
         self.costo_compra=float(costo_compra)
 
         precio_venta=raw_input("Precio de venta:")
-        self.precio_venta=float(precio_venta)    
+        self.precio_venta=float(precio_venta)
     
-   
+    def imprimirDatosVenta(self):
+        self.texto=str("")
+        self.texto+="\t Codigo: %s | Descripcion: %s | Precio: %.2f Cantidad vendida: %d" % (self.codigo,self.descripcion,self.precio_venta,
+                                                                                              self.cant_vendida)
+        print(self.texto)
+              
     def imprimirDatos(self):
-	self.datos+='\tCodigo: %s | Descripcion: %s | Costo de compra: %.2f | Precio de venta: %.2f' % (self.codigo,self.descripcion,
+	self.datos+='\t Codigo: %s | Descripcion: %s | Costo de compra: %.2f | Precio de venta: %.2f' % (self.codigo,self.descripcion,
   												          self.costo_compra,self.precio_venta)
   
  
@@ -36,7 +42,11 @@ class Factura:
        self.productos=[] 
 
     def agregarProducto(self,producto):
-        self.producto.append(producto)
+        self.productos.append(producto)
+    
+    def imprimir(self):
+       for producto in self.productos:
+           producto.imprimirDatosVenta()
 
 
     
