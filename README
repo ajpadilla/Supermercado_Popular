@@ -1,0 +1,19 @@
+              SUPERMERCADO POPULA
+Programa que permite llevar el control de las ventas de un supermercado, así como el ingreso al almacen de los mismos.
+
+Cada producto es identificado por medio de un código alfanumerico,descripción,cantidad en existencia, costo de compra, precio de venta. 
+
+El almacen vende 4 tipos de productos diferentes que son: Enlatados,lácteos,carnes,articulos en general. Los enlatados y viveres se venden por unidad, y es necesario conocer su marca, mientras que los lacteos se vende por litros o kilos, las carnes se venden por kilos.
+
+El programa usa el paradigma de la programacion orientada a objetos en Python, y cumple con los siguientes requerimientos:
+1-Añadir un producto al almacen
+2-Modificar existencia del producto
+3-Mostrar producto
+4-Facturar Venta
+5-Mostrar Ingresos brutos de la empresa 
+6-Mostrar Egresos de la empresa
+7-Reporte de productos existenca baja
+
+
+
+
